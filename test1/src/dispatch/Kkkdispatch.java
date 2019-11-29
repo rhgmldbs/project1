@@ -71,7 +71,9 @@ public class Kkkdispatch extends HttpServlet {
 		String full = req.getRequestURI();
 		String domain = req.getContextPath();
 		String real = full.substring(domain.length());
-
+		
+		System.out.println("Dispatcher - 받아온 주소값 : "+real);
+		
 		MainController controller = map.get(real);
 
 		req.setAttribute("isRD", false); //포워드 방식

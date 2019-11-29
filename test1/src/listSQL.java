@@ -1,4 +1,4 @@
-package SQL;
+
 
 public class listSQL {
 
@@ -15,8 +15,6 @@ public class listSQL {
 	public final int SC_SEARCHBDY =3001;//게시판 글내용으로 검색 기능 SQL
 	public final int SC_SEARCHID =3002;//게시판 글아이디로 검색 기능 SQL
 	public final int SC_SEARCHTLE =3003;//게시판 글 제목으로 검색 기능 SQL
-	
-	
 	
 	
 	

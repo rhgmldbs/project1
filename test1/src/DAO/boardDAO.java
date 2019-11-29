@@ -28,6 +28,7 @@ public class boardDAO {
 			pstmt.setString(1, b_tle);
 			pstmt.setString(2, b_bdy);
 			pstmt.setString(3, b_id);
+			
 			cnt = pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -159,38 +160,36 @@ public class boardDAO {
 
 	}
 
-	public int getsearch(int code) { // 게시판 검색 기능
-		int cnt = 0;
-
+	public ArrayList<board2VO> getsearch(int code ,String search) { // 게시판 검색 기능
+		ArrayList<board2VO> list = new ArrayList<board2VO>();
 		con = db.getCon();
 		String sql = bsql.getSQL(code);
 		pstmt =db.getPSTMT(con, sql);
 		
 		try {
-			
-			
-			if(code == 3001) {
-				pstmt.setInt(1, code);
-				
-				
-			}else if(code ==3002) {
-				pstmt.
+			pstmt.setString(1, "%"+search+"%");
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				board2VO vo = new board2VO();
+				vo.setB_no(rs.getInt("b_no"));
+				vo.setB_tle(rs.getString("b_tle"));
+				vo.setB_id(rs.getString("b_id"));
+				list.add(vo);
 			}
-			
-			
-			
-			
+			System.out.println("dao - list: "+list);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
-			
-			
+		} finally {
+			db.close(rs);
+			db.close(pstmt);
+			db.close(con);
 		}
 		
+		return list;
 		
+
+
 		
-		
-		return cnt;
 
 	}
 }

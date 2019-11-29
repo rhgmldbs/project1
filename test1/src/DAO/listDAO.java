@@ -37,7 +37,6 @@ listSQL lsql = new listSQL();
 				rs=pstmt.executeQuery();
 				rs.next();
 				cnt =rs.getInt("cnt");
-				System.out.println(cnt);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}finally {

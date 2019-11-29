@@ -25,7 +25,6 @@ $(document).ready(function(){
 	
 	});	 
 	
-	
 }); 
 
 
@@ -49,25 +48,23 @@ table {
       <div class="row">
     
       <div class="search">
-      <FORM name='frm' method='GET' action='./list.jsp'>
+      <!-- <FORM name='frm' method='post' action='/main/search.kkk'> -->
+      
+      <FORM name='frm' method='post' action='/main/boardlist.kkk'>
+      
     <ASIDE style='float: right;'>
-      <SELECT name='col'> <!-- 검색 컬럼 -->
-        <OPTION value='none'>전체 목록</OPTION>
-        <OPTION value='rname'>이름</OPTION>
-        <OPTION value='title'>제목</OPTION>
-        <OPTION value='content'>내용</OPTION>
-        <OPTION value='title_content'>제목+내용</OPTION>
+      <SELECT name='code'> <!-- 검색 컬럼 -->
+        <OPTION value='3001'>내용</OPTION>
+        <OPTION value='3002'>작성자</OPTION>
+        <OPTION value='3003'>글제목</OPTION>
       </SELECT>
-      <input type='text' name='word' value='' placeholder="특수문자는 사용할수 없습니다.">
+      <input type='text' name='search' placeholder="특수문자는 사용할수 없습니다.">
       <button type='submit'>검색</button>    
     </ASIDE> 
  </FORM>
       </div>
          <table class="table table-striped"
             style="text-align: center; border: 1px solid #dddddd">
-            
-            
-            
             <thead>
                <tr>
                   <th style="background-color: #eeeeee; text-align: center;">번호</th>
@@ -77,18 +74,38 @@ table {
                </tr>
             </thead>
             <tbody>
-            <c:forEach var="data" items="${LIST}">
+            
+            <!-- 일반게시글 리스트 -->
+            
+            
+            <c:if test="${not isSearch}"> <!-- 일반 리스트  -->
+            <c:forEach var="data" items="${LIST}">            	
                <tr class="tr" id="${data.b_no}" >
-             
                   <td> ${data.b_no} </td>
                   <td> ${data.b_tle}</td>
                   <td> ${data.b_id}</td>
                   <td> 작성일</td>
-              
-              
                </tr>
          
                </c:forEach>
+            </c:if>
+            <c:if test="${isSearch}">
+            <tr class="tr">
+            		<td colspan="4">
+            			${ keyword }에 대한 검색 결과
+            		</td>
+            	</tr>
+            <c:forEach var="data" items="${LIST}">
+            	
+               <tr class="tr" id="${data.b_no}" >
+                  <td> ${data.b_no} </td>
+                  <td> ${data.b_tle}</td>
+                  <td> ${data.b_id}</td>
+                  <td> 작성일</td>
+               </tr>
+         
+               </c:forEach>
+              </c:if>
             </tbody>
          </table>
          <button class="btn btn-primary pull-right" type="button" id="writebtn">글쓰기</button>
